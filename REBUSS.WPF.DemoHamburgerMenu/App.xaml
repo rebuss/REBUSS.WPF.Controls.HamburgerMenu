@@ -1,0 +1,9 @@
+﻿<Application x:Class="REBUSS.WPF.DemoHamburgerMenu.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:REBUSS.WPF.DemoHamburgerMenu"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary Source="pack://application:,,,/REBUSS.WPF.Controls.HamburgerMenu;component/Resources/Brushes.xaml"/>
+    </Application.Resources>
+</Application>

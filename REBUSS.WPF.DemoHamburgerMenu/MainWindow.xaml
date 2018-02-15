@@ -1,0 +1,21 @@
+﻿<Window x:Class="REBUSS.WPF.DemoHamburgerMenu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:REBUSS.WPF.DemoHamburgerMenu"
+        xmlns:hamburgerMenu="clr-namespace:REBUSS.WPF.Controls.HamburgerMenu;assembly=REBUSS.WPF.Controls.HamburgerMenu"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <hamburgerMenu:HamburgerMenu HorizontalAlignment="Left">
+            <hamburgerMenu:HamburgerMenuItem Text="List"
+                                        Content="&#xE14C;"
+                                        ToolTip="List View"/>
+            <hamburgerMenu:HamburgerMenuItem Content="&#xE104;"
+                                        Text="Edit"
+                                        ToolTip="Edit Document"/>
+        </hamburgerMenu:HamburgerMenu>
+    </Grid>
+</Window>
+
