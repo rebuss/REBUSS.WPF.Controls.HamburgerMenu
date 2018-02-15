@@ -21,10 +21,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
 
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
             "IsOpen", typeof(bool), typeof(HamburgerMenu), new PropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register(
-            "Model", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
-
+        
         public static readonly DependencyProperty TextOpacityProperty = DependencyProperty.Register(
             "TextOpacity", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(default(double)));
         
@@ -55,12 +52,6 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             get { return (bool) GetValue(IsOpenProperty); }
             set { SetValue(IsOpenProperty, value); }
-        }
-
-        public object Model
-        {
-            get { return GetValue(ModelProperty); }
-            set { SetValue(ModelProperty, value); }
         }
 
         public double TextOpacity
