@@ -143,19 +143,6 @@
             </GroupBox>
         </DockPanel>
         <ControlTemplate.Triggers>
-            <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="switchButton">
-                <BeginStoryboard x:Name="ExpandHamburgerMenuBeginStoryboard">
-                    <Storyboard AutoReverse="False">
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="250"/>
-                        </DoubleAnimationUsingKeyFrames>
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(hamburgerMenu:HamburgerMenu.TextOpacity)">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger>
             <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="switchButton">
                 <BeginStoryboard x:Name="CollapseHamburgerMenuBeginStoryboard">
                     <Storyboard AutoReverse="False">
