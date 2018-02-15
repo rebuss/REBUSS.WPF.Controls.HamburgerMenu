@@ -122,7 +122,8 @@
     <ControlTemplate x:Key="HamburgerMenuControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
         <DockPanel Background="{TemplateBinding Background}" x:Name="itemsControl" MinWidth="40"
                    LastChildFill="True">
-            <hamburgerMenu:SwitchButton HorizontalAlignment="Stretch"
+            <hamburgerMenu:SwitchButton IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                        HorizontalAlignment="Stretch"
                                         x:Name="switchButton"
                                         Margin="0" 
                                         CollapseMenuTooltip="{TemplateBinding CollapseMenuTooltip}"
