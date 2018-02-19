@@ -44,6 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delegates.cs" />
     <Compile Include="HamburgerMenu.cs" />
     <Compile Include="HamburgerMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
