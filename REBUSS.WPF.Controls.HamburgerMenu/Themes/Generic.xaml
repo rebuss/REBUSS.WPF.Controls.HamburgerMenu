@@ -130,17 +130,14 @@
                                         ExpandMenuTooltip="{TemplateBinding ExpandMenuTooltip}"
                                         Template="{StaticResource HamburgeMenuExpanderButton}"
                                         DockPanel.Dock="Top"/>
-            
+
             <Line X1="0" X2="1" Stretch="Fill" 
               HorizontalAlignment="Stretch" 
               VerticalAlignment="Bottom" 
               Stroke="{DynamicResource ActiveHighlightedBackground}"
               StrokeThickness="1"
                   DockPanel.Dock="Top"/>
-            <GroupBox Template="{StaticResource MenuGroupBoxControlTemplate}" 
-                      Margin="{TemplateBinding Padding}" DockPanel.Dock="Bottom">
-                <ItemsPresenter/>
-            </GroupBox>
+            <ItemsPresenter Margin="{TemplateBinding Padding}" DockPanel.Dock="Bottom"/>
         </DockPanel>
         <ControlTemplate.Triggers>
             <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="switchButton">

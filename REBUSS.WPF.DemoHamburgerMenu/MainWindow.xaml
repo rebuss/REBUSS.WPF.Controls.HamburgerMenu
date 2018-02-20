@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:hamburgerMenu="clr-namespace:REBUSS.WPF.Controls.HamburgerMenu;assembly=REBUSS.WPF.Controls.HamburgerMenu"
+        xmlns:demoHamburgerMenu="clr-namespace:REBUSS.WPF.DemoHamburgerMenu"
         mc:Ignorable="d"
         Title="REBUSS.HamburgerMenu" Height="350" Width="525">
+    <Window.DataContext>
+        <demoHamburgerMenu:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-        <hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
+        <!--<hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
                                      ExpandedAreaWidth="200">
             <hamburgerMenu:HamburgerMenuItem Text="List"
                                         Content="&#xE14C;"
@@ -15,6 +19,22 @@
             <hamburgerMenu:HamburgerMenuItem Content="&#xE104;"
                                         Text="Edit"
                                         ToolTip="Edit Document"/>
+        </hamburgerMenu:HamburgerMenu>-->
+        <hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
+                                     ItemsSource="{Binding MenuItems}"
+                                     ExpandedAreaWidth="200">
+            <hamburgerMenu:HamburgerMenu.Feeds>
+                <hamburgerMenu:FeedCollection>
+                    <hamburgerMenu:ItemFeed IconContent="&#xE14C;" 
+                                        Label="List" 
+                                        Tooltip="List view" 
+                                        Key="{x:Static demoHamburgerMenu:Consts.List}"/>
+                    <hamburgerMenu:ItemFeed IconContent="&#xE104;" 
+                                        Label="Edit" 
+                                        Tooltip="Edit document" 
+                                        Key="{x:Static demoHamburgerMenu:Consts.Edit}"/>
+                </hamburgerMenu:FeedCollection>
+            </hamburgerMenu:HamburgerMenu.Feeds>
         </hamburgerMenu:HamburgerMenu>
     </Grid>
 </Window>
