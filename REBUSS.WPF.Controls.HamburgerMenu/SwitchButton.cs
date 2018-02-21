@@ -15,7 +15,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SwitchButton), new FrameworkPropertyMetadata(typeof(SwitchButton)));
         }
-
+        
         public string CollapseMenuTooltip
         {
             get { return (string) GetValue(CollapseMenuTooltipProperty); }
@@ -26,6 +26,18 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             get { return (string) GetValue(ExpandMenuTooltipProperty); }
             set { SetValue(ExpandMenuTooltipProperty, value); }
+        }
+
+        protected override void OnChecked(RoutedEventArgs e)
+        {
+            base.OnChecked(e);
+            ToolTip = CollapseMenuTooltip;
+        }
+
+        protected override void OnUnchecked(RoutedEventArgs e)
+        {
+            base.OnUnchecked(e);
+            ToolTip = ExpandMenuTooltip;
         }
     }
 }

@@ -34,23 +34,6 @@
                     </VisualState>
                     <VisualState x:Name="Disabled"/>
                 </VisualStateGroup>
-                <VisualStateGroup x:Name="CheckStates">
-                    <VisualState x:Name="Checked">
-                        <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(ToolTipService.ToolTip)" Storyboard.TargetName="grid">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{TemplateBinding CollapseMenuTooltip}"/>
-                            </ObjectAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState>
-                    <VisualState x:Name="Unchecked">
-                        <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(ToolTipService.ToolTip)" Storyboard.TargetName="grid">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{TemplateBinding ExpandMenuTooltip}"/>
-                            </ObjectAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState>
-                </VisualStateGroup>
-
             </VisualStateManager.VisualStateGroups>
             <ContentPresenter Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
         </Grid>

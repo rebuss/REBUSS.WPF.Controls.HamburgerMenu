@@ -25,14 +25,6 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
             "IsOpen", typeof(bool), typeof(HamburgerMenu), new PropertyMetadata(default(bool), OnIsOpenChanged));
 
-        public static readonly RoutedEvent MenuClosedEvent =
-            EventManager.RegisterRoutedEvent("MenuClosed", RoutingStrategy.Bubble,
-                typeof(MenuClosedEventHandler), typeof(HamburgerMenu));
-
-        public static readonly RoutedEvent MenuOpenedEvent =
-            EventManager.RegisterRoutedEvent("MenuOpened", RoutingStrategy.Bubble,
-                typeof(MenuOpenedEventHandler), typeof(HamburgerMenu));
-
         public static readonly DependencyProperty SwitchButtonContentProperty = DependencyProperty.Register(
             "SwitchButtonContent", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
 
@@ -42,6 +34,13 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         public static readonly DependencyProperty TextOpacityProperty = DependencyProperty.Register(
             "TextOpacity", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(default(double)));
 
+        public static readonly RoutedEvent MenuClosedEvent =
+            EventManager.RegisterRoutedEvent("MenuClosed", RoutingStrategy.Bubble,
+                typeof(MenuClosedEventHandler), typeof(HamburgerMenu));
+
+        public static readonly RoutedEvent MenuOpenedEvent =
+            EventManager.RegisterRoutedEvent("MenuOpened", RoutingStrategy.Bubble,
+                typeof(MenuOpenedEventHandler), typeof(HamburgerMenu));
 
         private readonly ItemController itemController = new ItemController();
 
@@ -67,31 +66,31 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
 
         public string CollapseMenuTooltip
         {
-            get { return (string) GetValue(CollapseMenuTooltipProperty); }
+            get { return (string)GetValue(CollapseMenuTooltipProperty); }
             set { SetValue(CollapseMenuTooltipProperty, value); }
         }
 
         public string ExpandMenuTooltip
         {
-            get { return (string) GetValue(ExpandMenuTooltipProperty); }
+            get { return (string)GetValue(ExpandMenuTooltipProperty); }
             set { SetValue(ExpandMenuTooltipProperty, value); }
         }
 
         public FeedCollection Feeds
         {
-            get { return (FeedCollection) GetValue(FeedsProperty); }
+            get { return (FeedCollection)GetValue(FeedsProperty); }
             set { SetValue(FeedsProperty, value); }
         }
 
         public double IconPanelWidth
         {
-            get { return (double) GetValue(IconPanelWidthProperty); }
+            get { return (double)GetValue(IconPanelWidthProperty); }
             set { SetValue(IconPanelWidthProperty, value); }
         }
 
         public bool IsOpen
         {
-            get { return (bool) GetValue(IsOpenProperty); }
+            get { return (bool)GetValue(IsOpenProperty); }
             set { SetValue(IsOpenProperty, value); }
         }
 
@@ -103,19 +102,19 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
 
         public double SwitchButtonHeight
         {
-            get { return (double) GetValue(SwitchButtonHeightProperty); }
+            get { return (double)GetValue(SwitchButtonHeightProperty); }
             set { SetValue(SwitchButtonHeightProperty, value); }
         }
 
         public double TextOpacity
         {
-            get { return (double) GetValue(TextOpacityProperty); }
+            get { return (double)GetValue(TextOpacityProperty); }
             set { SetValue(TextOpacityProperty, value); }
         }
 
         public double TotalWidth
         {
-            get { return (double) GetValue(TotalWidthProperty); }
+            get { return (double)GetValue(TotalWidthProperty); }
             set { SetValue(TotalWidthProperty, value); }
         }
 
@@ -148,7 +147,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 if (item is HamburgerMenuItem)
                 {
                     menuItem = item as HamburgerMenuItem;
-                    if ((int) menuItem.IconWidth == 0)
+                    if ((int)menuItem.IconWidth == 0)
                     {
                         menuItem.IconWidth = IconPanelWidth;
                     }
@@ -159,6 +158,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                         {
                             Command = menuItem.Command,
                             IconContent = menuItem.Content,
+                            Tooltip = menuItem.ToolTip,
                             Label = menuItem.Text,
                             Key = menuItem.GetHashCode()
                         };
@@ -168,17 +168,17 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 }
                 else
                 {
-                    menuItem = (HamburgerMenuItem) ItemContainerGenerator.ContainerFromItem(item);
+                    menuItem = (HamburgerMenuItem)ItemContainerGenerator.ContainerFromItem(item);
                 }
 
                 itemController.AddItem(menuItem);
             }
         }
-        
+
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var menu = d as HamburgerMenu;
-            if ((bool) e.NewValue)
+            if ((bool)e.NewValue)
             {
                 menu?.StartExpandAnimation();
             }

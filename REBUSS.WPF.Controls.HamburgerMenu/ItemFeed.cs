@@ -18,7 +18,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             "Label", typeof(string), typeof(ItemFeed), new PropertyMetadata(default(string)));
 
         public static readonly DependencyProperty TooltipProperty = DependencyProperty.Register(
-            "Tooltip", typeof(string), typeof(ItemFeed), new PropertyMetadata(default(string)));
+            "Tooltip", typeof(object), typeof(ItemFeed), new PropertyMetadata(default(object)));
 
         public ICommand Command
         {
@@ -44,9 +44,9 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             set { SetValue(LabelProperty, value); }
         }
 
-        public string Tooltip
+        public object Tooltip
         {
-            get { return (string) GetValue(TooltipProperty); }
+            get { return (object) GetValue(TooltipProperty); }
             set { SetValue(TooltipProperty, value); }
         }
     }
