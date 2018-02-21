@@ -1,28 +1,34 @@
-﻿using System.Globalization;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media;
 
 namespace REBUSS.WPF.Controls.HamburgerMenu
 {
     public class HamburgerMenuItem : RadioButton
     {
+        public static readonly DependencyProperty IconWidthProperty = DependencyProperty.Register(
+            "IconWidth", typeof(double), typeof(HamburgerMenuItem), new PropertyMetadata(default(double)));
+
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             "Text", typeof(string), typeof(HamburgerMenuItem), new PropertyMetadata(default(string)));
-        
+
         static HamburgerMenuItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(HamburgerMenuItem),
                 new FrameworkPropertyMetadata(typeof(HamburgerMenuItem)));
         }
         
+        public double IconWidth
+        {
+            get { return (double) GetValue(IconWidthProperty); }
+            set { SetValue(IconWidthProperty, value); }
+        }
+
         public string Text
         {
             get { return (string) GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
-        
+
         internal void UpdateWith(ItemFeed feed)
         {
             if (feed != null)

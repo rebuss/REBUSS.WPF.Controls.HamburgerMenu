@@ -8,15 +8,18 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="HamburgeMenuExpanderButton" TargetType="{x:Type hamburgerMenu:SwitchButton}">
-        <Grid x:Name="grid" Height="46" Width="Auto" Background="{DynamicResource ActiveBackground}">
+        <Grid x:Name="grid" Height="{TemplateBinding Height}" 
+              Width="Auto" 
+              Background="{DynamicResource ActiveBackground}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal"/>
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="path">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActiveHighlightedForegroundColor}"/>
-                            </ObjectAnimationUsingKeyFrames>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActiveHighlightedBackgroundColor}"/>
                             </ObjectAnimationUsingKeyFrames>
@@ -26,9 +29,6 @@
                         <Storyboard>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActivePressedBackgroundColor}"/>
-                            </ObjectAnimationUsingKeyFrames>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="path">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActivePressedForegroundColor}"/>
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
@@ -52,16 +52,22 @@
                 </VisualStateGroup>
 
             </VisualStateManager.VisualStateGroups>
-            <Path x:Name="path" Data="M1.5000005,1.5 L20.500001,1.5 M1.5000005,9.5000003 L20.500001,9.5000003 M1.5,17.499999 L20.499999,17.499999" 
-                  Height="Auto" Width="22" Stretch="Fill" VerticalAlignment="Center" StrokeThickness="3" HorizontalAlignment="Left" Margin="14" 
-                  Stroke="{DynamicResource ActiveNormalForeground}"/>
+            <ContentPresenter Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
         </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource ActiveHighlightedForeground}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource ActivePressedForeground}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="HamburgerMenuItemControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenuItem}">
         <Grid x:Name="grid" Height="Auto" Width="Auto" Background="{DynamicResource ActiveBackground}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
@@ -84,16 +90,20 @@
                 </VisualStateGroup>
 
             </VisualStateManager.VisualStateGroups>
+
             <ContentPresenter x:Name="path"
-                              Height="Auto" 
+                              Width="{TemplateBinding IconWidth}"
                               VerticalAlignment="Center" 
                               HorizontalAlignment="Center"
-                              Content="{TemplateBinding Content}"/>
+                              Content="{TemplateBinding Content}"
+                              Margin="10"/>
             <TextBlock x:Name="TextPresenter" Text="{TemplateBinding Text}" 
                        FontSize="{TemplateBinding FontSize}"
                        FontWeight="Bold"
                        FontFamily="{TemplateBinding FontFamily}"
-                       Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Grid.Column="1" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"
                        Margin="10,0,0,0"
                        TextAlignment="Center" 
                        Opacity="{Binding TextOpacity, RelativeSource={RelativeSource AncestorType=hamburgerMenu:HamburgerMenu}}"/>
@@ -114,22 +124,27 @@
     <Style TargetType="{x:Type hamburgerMenu:HamburgerMenuItem}">
         <Setter Property="Template" Value="{StaticResource HamburgerMenuItemControlTemplate}"/>
         <Setter Property="Foreground" Value="{DynamicResource ActiveNormalForeground}"/>
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="MinHeight" Value="50"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+    </Style>
+
+    <Style TargetType="{x:Type hamburgerMenu:SwitchButton}">
+        <Setter Property="Template" Value="{StaticResource HamburgeMenuExpanderButton}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ActiveNormalForeground}"/>
         <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
     </Style>
 
     <ControlTemplate x:Key="HamburgerMenuControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
-        <DockPanel Background="{TemplateBinding Background}" x:Name="itemsControl" MinWidth="40"
+        <DockPanel Background="{TemplateBinding Background}" x:Name="itemsControl" MinWidth="{TemplateBinding IconPanelWidth}"
                    LastChildFill="True">
             <hamburgerMenu:SwitchButton IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                         HorizontalAlignment="Stretch"
                                         x:Name="switchButton"
                                         Margin="0" 
+                                        Height="{TemplateBinding SwitchButtonHeight}"
                                         CollapseMenuTooltip="{TemplateBinding CollapseMenuTooltip}"
                                         ExpandMenuTooltip="{TemplateBinding ExpandMenuTooltip}"
-                                        Template="{StaticResource HamburgeMenuExpanderButton}"
-                                        DockPanel.Dock="Top"/>
+                                        DockPanel.Dock="Top"
+                                        Content="{TemplateBinding SwitchButtonContent}"/>
 
             <Line X1="0" X2="1" Stretch="Fill" 
               HorizontalAlignment="Stretch" 
@@ -139,28 +154,23 @@
                   DockPanel.Dock="Top"/>
             <ItemsPresenter Margin="{TemplateBinding Padding}" DockPanel.Dock="Bottom"/>
         </DockPanel>
-        <ControlTemplate.Triggers>
-            <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="switchButton">
-                <BeginStoryboard x:Name="CollapseHamburgerMenuBeginStoryboard">
-                    <Storyboard AutoReverse="False">
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
-                        </DoubleAnimationUsingKeyFrames>
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(hamburgerMenu:HamburgerMenu.TextOpacity)">
-                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
-        <Setter Property="MinWidth" Value="40"/>
         <Setter Property="Background" Value="{DynamicResource ActiveBackground}"/>
-        <Setter Property="Width" Value="50"/>
+        <Setter Property="Width" Value="{Binding IconPanelWidth, RelativeSource={RelativeSource Self}}"/>
         <Setter Property="Template" Value="{StaticResource HamburgerMenuControlTemplate}"/>
+        <Setter Property="FontSize" Value="22"></Setter>
+        <Setter Property="SwitchButtonContent">
+            <Setter.Value>
+                <Path x:Name="path" 
+                      Data="M1.5000005,1.5 L20.500001,1.5 M1.5000005,9.5000003 L20.500001,9.5000003 M1.5,17.499999 L20.499999,17.499999" 
+                      Stretch="Fill" 
+                      StrokeThickness="3" 
+                      Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=hamburgerMenu:SwitchButton}}"
+                      HorizontalAlignment="Left"
+                      Margin="14"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

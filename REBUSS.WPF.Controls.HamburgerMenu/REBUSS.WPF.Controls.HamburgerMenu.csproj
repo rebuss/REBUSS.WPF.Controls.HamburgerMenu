@@ -44,6 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimationProvider.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="FeedCollection.cs" />
     <Compile Include="HamburgerMenu.cs" />

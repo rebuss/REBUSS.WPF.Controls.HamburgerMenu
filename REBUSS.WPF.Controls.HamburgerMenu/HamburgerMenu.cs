@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -21,28 +20,39 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         public static readonly DependencyProperty FeedsProperty = DependencyProperty.Register(
             "Feeds", typeof(FeedCollection), typeof(HamburgerMenu), new PropertyMetadata(new FeedCollection()));
         
+        public static readonly DependencyProperty IconPanelWidthProperty = DependencyProperty.Register(
+            "IconPanelWidth", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(50.0));
+        
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
             "IsOpen", typeof(bool), typeof(HamburgerMenu), new PropertyMetadata(default(bool), OnIsOpenChanged));
 
+        public static readonly DependencyProperty SwitchButtonContentProperty = DependencyProperty.Register(
+            "SwitchButtonContent", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
+
+        public static readonly DependencyProperty SwitchButtonHeightProperty = DependencyProperty.Register(
+            "SwitchButtonHeight", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(46.0));
+        
         public static readonly DependencyProperty TextOpacityProperty = DependencyProperty.Register(
             "TextOpacity", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(default(double)));
 
         public static readonly RoutedEvent MenuClosedEvent =
             EventManager.RegisterRoutedEvent("MenuClosed", RoutingStrategy.Bubble,
-                typeof(MenuClosedEventHandler), typeof(HamburgerMenu));
+        typeof(MenuClosedEventHandler), typeof(HamburgerMenu));
 
         public static readonly RoutedEvent MenuOpenedEvent =
             EventManager.RegisterRoutedEvent("MenuOpened", RoutingStrategy.Bubble,
                 typeof(MenuOpenedEventHandler), typeof(HamburgerMenu));
         
-        private DockPanel itemsControl;
-
         private readonly ItemController itemController = new ItemController();
 
-        private Storyboard storyboard;
+        private Storyboard collapsingStoryboard;
 
-        private ToggleButton switchButton;
+        private Storyboard expandingStoryboard;
+
+        private DockPanel itemsControl;
         
+        private ToggleButton switchButton;
+
         static HamburgerMenu()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(HamburgerMenu),
@@ -56,9 +66,16 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             itemController.SelectedItemChanged += OnSelectedItemChanged;
         }
 
-        private void OnSelectedItemChanged(HamburgerMenuItem item)
+        public event MenuClosedEventHandler MenuClosed
         {
-            SetCurrentValue(SelectedItemProperty, item);
+            add { AddHandler(MenuClosedEvent, value); }
+            remove { RemoveHandler(MenuClosedEvent, value); }
+        }
+
+        public event MenuOpenedEventHandler MenuOpened
+        {
+            add { AddHandler(MenuOpenedEvent, value); }
+            remove { RemoveHandler(MenuOpenedEvent, value); }
         }
 
         public string CollapseMenuTooltip
@@ -79,10 +96,17 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             get { return (string)GetValue(ExpandMenuTooltipProperty); }
             set { SetValue(ExpandMenuTooltipProperty, value); }
         }
+
         public FeedCollection Feeds
         {
             get { return (FeedCollection)GetValue(FeedsProperty); }
             set { SetValue(FeedsProperty, value); }
+        }
+        
+        public double IconPanelWidth
+        {
+            get { return (double)GetValue(IconPanelWidthProperty); }
+            set { SetValue(IconPanelWidthProperty, value); }
         }
 
         public bool IsOpen
@@ -91,56 +115,22 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             set { SetValue(IsOpenProperty, value); }
         }
 
+        public object SwitchButtonContent
+        {
+            get { return GetValue(SwitchButtonContentProperty); }
+            set { SetValue(SwitchButtonContentProperty, value); }
+        }
+
+        public double SwitchButtonHeight
+        {
+            get { return (double)GetValue(SwitchButtonHeightProperty); }
+            set { SetValue(SwitchButtonHeightProperty, value); }
+        }
+
         public double TextOpacity
         {
             get { return (double)GetValue(TextOpacityProperty); }
             set { SetValue(TextOpacityProperty, value); }
-        }
-
-        public event MenuClosedEventHandler MenuClosed
-        {
-            add { AddHandler(MenuClosedEvent, value); }
-            remove { RemoveHandler(MenuClosedEvent, value); }
-        }
-
-        public event MenuOpenedEventHandler MenuOpened
-        {
-            add { AddHandler(MenuOpenedEvent, value); }
-            remove { RemoveHandler(MenuOpenedEvent, value); }
-        }
-
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new HamburgerMenuItem();
-        }
-
-        private void InitializeExpandAnimation()
-        {
-            storyboard = new Storyboard();
-            storyboard.AutoReverse = false;
-            var widthAnimation = new DoubleAnimationUsingKeyFrames();
-            Storyboard.SetTarget(widthAnimation, this);
-            Storyboard.SetTargetProperty(widthAnimation, new PropertyPath(WidthProperty));
-            var widthEasing = new EasingDoubleKeyFrame(ExpandedAreaWidth, TimeSpan.FromMilliseconds(300));
-            widthAnimation.KeyFrames.Add(widthEasing);
-            storyboard.Children.Add(widthAnimation);
-            var opacityAnimation = new DoubleAnimationUsingKeyFrames();
-            Storyboard.SetTarget(opacityAnimation, this);
-            Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(TextOpacityProperty));
-            var opacityEasingA = new EasingDoubleKeyFrame(0.0, TimeSpan.FromMilliseconds(300));
-            var opacityEasingB = new EasingDoubleKeyFrame(1.0, TimeSpan.FromMilliseconds(500));
-            opacityAnimation.KeyFrames.Add(opacityEasingA);
-            opacityAnimation.KeyFrames.Add(opacityEasingB);
-            storyboard.Children.Add(opacityAnimation);
-        }
-
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var menu = d as HamburgerMenu;
-            if ((bool)e.NewValue)
-            {
-                menu?.StartExpandAnimation();
-            }
         }
 
         private void CacheHamburgerMenuItems()
@@ -151,6 +141,11 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 if (item is HamburgerMenuItem)
                 {
                     menuItem = item as HamburgerMenuItem;
+                    if ((int)menuItem.IconWidth == 0)
+                    {
+                        menuItem.IconWidth = IconPanelWidth;
+                    }
+
                     if (ItemsSource == null || !ItemsSource.GetEnumerator().MoveNext())
                     {
                         var newFeed = new ItemFeed
@@ -168,14 +163,37 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 {
                     menuItem = (HamburgerMenuItem)ItemContainerGenerator.ContainerFromItem(item);
                 }
-                
+
                 itemController.AddItem(menuItem);
             }
         }
 
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new HamburgerMenuItem
+            {
+                IconWidth = IconPanelWidth,
+                FontSize = FontSize,
+            };
+        }
+        
+        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var menu = d as HamburgerMenu;
+            if ((bool)e.NewValue)
+            {
+                menu?.StartExpandAnimation();
+            }
+            else
+            {
+                menu?.StartCollapsingAnimation();
+            }
+        }
+        
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            InitializeExpandAnimation();
+            expandingStoryboard = AnimationProvider.GetExpandingAnimation(this);
+            collapsingStoryboard = AnimationProvider.GetCollapsingAnimation(this);
             itemsControl = Template.FindName("itemsControl", this) as DockPanel;
             switchButton = Template.FindName("switchButton", this) as ToggleButton;
 
@@ -187,11 +205,16 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
 
             CacheHamburgerMenuItems();
             itemController.InjectData(Feeds);
-            
+
             if (IsOpen)
             {
                 StartExpandAnimation();
             }
+        }
+
+        private void OnSelectedItemChanged(HamburgerMenuItem item)
+        {
+            SetCurrentValue(SelectedItemProperty, item);
         }
 
         private void RaiseMenuClosedEvent(object sender, RoutedEventArgs e)
@@ -204,16 +227,29 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             RaiseEvent(new RoutedEventArgs(MenuOpenedEvent, this));
         }
 
-        private void StartExpandAnimation()
+        private void StartCollapsingAnimation()
         {
-            if (storyboard == null)
+            if (collapsingStoryboard == null)
             {
-                InitializeExpandAnimation();
+                collapsingStoryboard = AnimationProvider.GetCollapsingAnimation(this);
             }
 
             if (itemsControl != null)
             {
-                storyboard?.Begin(itemsControl);
+                collapsingStoryboard?.Begin(itemsControl);
+            }
+        }
+
+        private void StartExpandAnimation()
+        {
+            if (expandingStoryboard == null)
+            {
+                expandingStoryboard = AnimationProvider.GetExpandingAnimation(this);
+            }
+
+            if (itemsControl != null)
+            {
+                expandingStoryboard?.Begin(itemsControl);
             }
         }
     }

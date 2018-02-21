@@ -11,7 +11,7 @@
         <demoHamburgerMenu:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <!--<hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
+        <hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
                                      ExpandedAreaWidth="200">
             <hamburgerMenu:HamburgerMenuItem Text="List"
                                         Content="&#xE14C;"
@@ -19,8 +19,8 @@
             <hamburgerMenu:HamburgerMenuItem Content="&#xE104;"
                                         Text="Edit"
                                         ToolTip="Edit Document"/>
-        </hamburgerMenu:HamburgerMenu>-->
-        <hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
+        </hamburgerMenu:HamburgerMenu>
+        <!--<hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
                                      ItemsSource="{Binding MenuItems}"
                                      ExpandedAreaWidth="200">
             <hamburgerMenu:HamburgerMenu.Feeds>
@@ -35,7 +35,7 @@
                                         Key="{x:Static demoHamburgerMenu:Consts.Edit}"/>
                 </hamburgerMenu:FeedCollection>
             </hamburgerMenu:HamburgerMenu.Feeds>
-        </hamburgerMenu:HamburgerMenu>
+        </hamburgerMenu:HamburgerMenu>-->
     </Grid>
 </Window>
 
