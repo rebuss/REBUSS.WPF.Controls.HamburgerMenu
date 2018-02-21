@@ -35,13 +35,13 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             {
                 foreach (var item in items)
                 {
-                    var feed = feeds.FirstOrDefault(f => f.Key.Equals(item.DataContext) || f.Key.Equals(item.GetHashCode()));
+                    var feed =
+                        feeds.FirstOrDefault(f => f.Key.Equals(item.DataContext) || f.Key.Equals(item.GetHashCode()));
                     item.UpdateWith(feed);
                 }
             }
         }
 
-        // TODO remove handler
         private void OnItemChecked(object sender, RoutedEventArgs e)
         {
             var selectedItem = sender as HamburgerMenuItem;
@@ -53,7 +53,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                     if (!item.Equals(selectedItem))
                     {
                         item.SetCurrentValue(ToggleButton.IsCheckedProperty, false);
-                    } 
+                    }
                 }
             }
         }

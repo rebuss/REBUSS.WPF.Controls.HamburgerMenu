@@ -16,7 +16,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             DefaultStyleKeyProperty.OverrideMetadata(typeof(HamburgerMenuItem),
                 new FrameworkPropertyMetadata(typeof(HamburgerMenuItem)));
         }
-        
+
         public double IconWidth
         {
             get { return (double) GetValue(IconWidthProperty); }
@@ -39,7 +39,5 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 SetCurrentValue(ToolTipProperty, feed.Tooltip);
             }
         }
-
-        // TODO implement GetHashCode
     }
 }
