@@ -47,7 +47,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="HamburgerMenuItemControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenuItem}">
-        <Grid x:Name="grid" Height="Auto" Width="Auto" Background="{DynamicResource ActiveBackground}">
+        <Grid x:Name="grid" Height="Auto" Width="Auto" Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -74,12 +74,21 @@
 
             </VisualStateManager.VisualStateGroups>
 
+            <Rectangle Stretch="Fill" 
+                       Fill="{DynamicResource ActiveHighlightedForeground}" 
+                       Width="6"
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Stretch"
+                       Visibility="Collapsed"
+                       x:Name="bar"
+                       Margin="0,8"/>
             <ContentPresenter x:Name="path"
                               Width="{TemplateBinding IconWidth}"
                               VerticalAlignment="Center" 
                               HorizontalAlignment="Center"
                               Content="{TemplateBinding Content}"
-                              Margin="10"/>
+                              Margin="10"
+                              Grid.Column="0"/>
             <TextBlock x:Name="TextPresenter" Text="{TemplateBinding Text}" 
                        FontSize="{TemplateBinding FontSize}"
                        FontWeight="Bold"
@@ -88,6 +97,7 @@
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center"
                        Margin="10,0,0,0"
+                       Padding="0"
                        TextAlignment="Center" 
                        Opacity="{Binding TextOpacity, RelativeSource={RelativeSource AncestorType=hamburgerMenu:HamburgerMenu}}"/>
         </Grid>
@@ -100,6 +110,7 @@
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Foreground" Value="{DynamicResource ActiveHighlightedForeground}"/>
+                <Setter Property="Visibility" TargetName="bar" Value="Visible"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -117,9 +128,16 @@
     </Style>
 
     <ControlTemplate x:Key="HamburgerMenuControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
-        <DockPanel Background="{TemplateBinding Background}" x:Name="itemsControl" MinWidth="{TemplateBinding CompactPaneWidth}"
+        <Border BorderThickness="0" Background="{TemplateBinding Background}">
+            <DockPanel x:Name="itemsControl" MinWidth="{TemplateBinding CompactPaneWidth}"
                    LastChildFill="True">
-            <hamburgerMenu:SwitchButton IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                <DockPanel.Background>
+                    <LinearGradientBrush StartPoint="0.3,0.5" EndPoint="1, 1" Opacity="0.1">
+                            <GradientStop Color="{DynamicResource ActiveBackgroundColor}" Offset="1" />
+                            <GradientStop Color="{DynamicResource ActiveNormalColor}" Offset="0.2"/>
+                        </LinearGradientBrush>
+                </DockPanel.Background>
+                <hamburgerMenu:SwitchButton IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                         HorizontalAlignment="Stretch"
                                         x:Name="switchButton"
                                         Margin="0" 
@@ -129,14 +147,15 @@
                                         DockPanel.Dock="Top"
                                         Content="{TemplateBinding SwitchButtonContent}"/>
 
-            <Line X1="0" X2="1" Stretch="Fill" 
+                <Line X1="0" X2="1" Stretch="Fill" 
               HorizontalAlignment="Stretch" 
               VerticalAlignment="Bottom" 
               Stroke="{DynamicResource ActiveHighlightedBackground}"
               StrokeThickness="1"
                   DockPanel.Dock="Top"/>
-            <ItemsPresenter Margin="{TemplateBinding Padding}" DockPanel.Dock="Bottom"/>
-        </DockPanel>
+                <ItemsPresenter Margin="{TemplateBinding Padding}" DockPanel.Dock="Bottom"/>
+            </DockPanel>
+        </Border>
     </ControlTemplate>
 
     <Style TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
