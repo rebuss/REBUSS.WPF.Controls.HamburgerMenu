@@ -117,15 +117,15 @@
     </Style>
 
     <ControlTemplate x:Key="HamburgerMenuControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
-        <DockPanel Background="{TemplateBinding Background}" x:Name="itemsControl" MinWidth="{TemplateBinding IconPanelWidth}"
+        <DockPanel Background="{TemplateBinding Background}" x:Name="itemsControl" MinWidth="{TemplateBinding CompactPaneWidth}"
                    LastChildFill="True">
             <hamburgerMenu:SwitchButton IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                         HorizontalAlignment="Stretch"
                                         x:Name="switchButton"
                                         Margin="0" 
                                         Height="{TemplateBinding SwitchButtonHeight}"
-                                        CollapseMenuTooltip="{TemplateBinding CollapseMenuTooltip}"
-                                        ExpandMenuTooltip="{TemplateBinding ExpandMenuTooltip}"
+                                        CompactMenuTooltip="{TemplateBinding CompactMenuTooltip}"
+                                        OpenMenuTooltip="{TemplateBinding OpenMenuTooltip}"
                                         DockPanel.Dock="Top"
                                         Content="{TemplateBinding SwitchButtonContent}"/>
 
@@ -141,7 +141,7 @@
 
     <Style TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
         <Setter Property="Background" Value="{DynamicResource ActiveBackground}"/>
-        <Setter Property="Width" Value="{Binding IconPanelWidth, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="Width" Value="{Binding CompactPaneWidth, RelativeSource={RelativeSource Self}}"/>
         <Setter Property="Template" Value="{StaticResource HamburgerMenuControlTemplate}"/>
         <Setter Property="FontSize" Value="22"></Setter>
         <Setter Property="SwitchButtonContent">

@@ -13,7 +13,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             var widthAnimation = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTarget(widthAnimation, target);
             Storyboard.SetTargetProperty(widthAnimation, new PropertyPath(FrameworkElement.WidthProperty));
-            var widthEasing = new EasingDoubleKeyFrame(target.IconPanelWidth, TimeSpan.FromMilliseconds(300));
+            var widthEasing = new EasingDoubleKeyFrame(target.CompactPaneWidth, TimeSpan.FromMilliseconds(300));
             widthAnimation.KeyFrames.Add(widthEasing);
             storyboard.Children.Add(widthAnimation);
             var opacityAnimation = new DoubleAnimationUsingKeyFrames();
@@ -35,7 +35,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             var widthAnimation = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTarget(widthAnimation, target);
             Storyboard.SetTargetProperty(widthAnimation, new PropertyPath(FrameworkElement.WidthProperty));
-            var widthEasing = new EasingDoubleKeyFrame(target.TotalWidth, TimeSpan.FromMilliseconds(300));
+            var widthEasing = new EasingDoubleKeyFrame(target.OpenPaneWidth, TimeSpan.FromMilliseconds(300));
             widthAnimation.KeyFrames.Add(widthEasing);
             storyboard.Children.Add(widthAnimation);
             var opacityAnimation = new DoubleAnimationUsingKeyFrames();
