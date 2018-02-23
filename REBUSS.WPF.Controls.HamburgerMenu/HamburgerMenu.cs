@@ -7,6 +7,9 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
 {
     public class HamburgerMenu : Selector
     {
+        public static readonly DependencyProperty BackgroundContentProperty = DependencyProperty.Register(
+            "BackgroundContent", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
+
         public static readonly DependencyProperty CompactMenuTooltipProperty = DependencyProperty.Register(
             "CompactMenuTooltip", typeof(string), typeof(HamburgerMenu), new PropertyMetadata("Compact"));
 
@@ -48,7 +51,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
 
         private Storyboard expandingStoryboard;
 
-        private DockPanel itemsControl;
+        private Grid itemsControl;
 
         private ToggleButton switchButton;
 
@@ -62,6 +65,12 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             Loaded += OnLoaded;
             itemController.SelectedItemChanged += OnSelectedItemChanged;
+        }
+
+        public object BackgroundContent
+        {
+            get { return (object)GetValue(BackgroundContentProperty); }
+            set { SetValue(BackgroundContentProperty, value); }
         }
 
         public string CompactMenuTooltip
@@ -174,17 +183,20 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 FontSize = FontSize
             };
         }
-        
+
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var menu = d as HamburgerMenu;
-            if ((bool)e.NewValue)
+            if (menu?.IsLoaded == true)
             {
-                menu?.StartExpandAnimation();
-            }
-            else
-            {
-                menu?.StartCollapsingAnimation();
+                if ((bool)e.NewValue)
+                {
+                    menu?.StartExpandAnimation();
+                }
+                else
+                {
+                    menu?.StartCollapsingAnimation();
+                }
             }
         }
 
@@ -192,7 +204,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             expandingStoryboard = AnimationProvider.GetExpandingAnimation(this);
             collapsingStoryboard = AnimationProvider.GetCollapsingAnimation(this);
-            itemsControl = Template.FindName("itemsControl", this) as DockPanel;
+            itemsControl = Template.FindName("itemsControl", this) as Grid;
             switchButton = Template.FindName("switchButton", this) as ToggleButton;
 
             if (switchButton != null)

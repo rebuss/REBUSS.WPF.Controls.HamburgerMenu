@@ -10,7 +10,7 @@
     <ControlTemplate x:Key="HamburgeMenuExpanderButton" TargetType="{x:Type hamburgerMenu:SwitchButton}">
         <Grid x:Name="grid" Height="{TemplateBinding Height}" 
               Width="Auto" 
-              Background="{DynamicResource ActiveBackground}">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -23,6 +23,9 @@
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActiveHighlightedBackgroundColor}"/>
                             </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)" Storyboard.TargetName="grid">
+                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                            </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Pressed">
@@ -30,6 +33,9 @@
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActivePressedBackgroundColor}"/>
                             </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)" Storyboard.TargetName="grid">
+                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                            </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Disabled"/>
@@ -60,6 +66,9 @@
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActiveHighlightedBackgroundColor}"/>
                             </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)" Storyboard.TargetName="grid">
+                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                            </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Pressed">
@@ -67,6 +76,9 @@
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActivePressedBackgroundColor}"/>
                             </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)" Storyboard.TargetName="grid">
+                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                            </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Disabled"/>
@@ -128,16 +140,23 @@
     </Style>
 
     <ControlTemplate x:Key="HamburgerMenuControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
-        <Border BorderThickness="0" Background="{TemplateBinding Background}">
-            <DockPanel x:Name="itemsControl" MinWidth="{TemplateBinding CompactPaneWidth}"
-                   LastChildFill="True">
-                <DockPanel.Background>
-                    <LinearGradientBrush StartPoint="0.3,0.5" EndPoint="1, 1" Opacity="0.1">
-                            <GradientStop Color="{DynamicResource ActiveBackgroundColor}" Offset="1" />
-                            <GradientStop Color="{DynamicResource ActiveNormalColor}" Offset="0.2"/>
-                        </LinearGradientBrush>
-                </DockPanel.Background>
-                <hamburgerMenu:SwitchButton IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+
+        <Grid x:Name="itemsControl" MinWidth="{TemplateBinding CompactPaneWidth}" 
+              Background="{TemplateBinding Background}"
+              Width="{TemplateBinding OpenPaneWidth}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" 
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Content="{TemplateBinding BackgroundContent}"/>
+            <hamburgerMenu:SwitchButton IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                         HorizontalAlignment="Stretch"
                                         x:Name="switchButton"
                                         Margin="0" 
@@ -145,17 +164,18 @@
                                         CompactMenuTooltip="{TemplateBinding CompactMenuTooltip}"
                                         OpenMenuTooltip="{TemplateBinding OpenMenuTooltip}"
                                         DockPanel.Dock="Top"
-                                        Content="{TemplateBinding SwitchButtonContent}"/>
+                                        Content="{TemplateBinding SwitchButtonContent}"
+                                        Grid.ColumnSpan="2"/>
 
-                <Line X1="0" X2="1" Stretch="Fill" 
+            <Line X1="0" X2="1" Stretch="Fill" 
               HorizontalAlignment="Stretch" 
               VerticalAlignment="Bottom" 
               Stroke="{DynamicResource ActiveHighlightedBackground}"
               StrokeThickness="1"
-                  DockPanel.Dock="Top"/>
-                <ItemsPresenter Margin="{TemplateBinding Padding}" DockPanel.Dock="Bottom"/>
-            </DockPanel>
-        </Border>
+              DockPanel.Dock="Top" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"/>
+            <ItemsPresenter Margin="{TemplateBinding Padding}" 
+                            DockPanel.Dock="Bottom" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"/>
+        </Grid>
     </ControlTemplate>
 
     <Style TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
@@ -163,6 +183,7 @@
         <Setter Property="Width" Value="{Binding CompactPaneWidth, RelativeSource={RelativeSource Self}}"/>
         <Setter Property="Template" Value="{StaticResource HamburgerMenuControlTemplate}"/>
         <Setter Property="FontSize" Value="22"></Setter>
+        <Setter Property="OpenPaneWidth" Value="250"/>
         <Setter Property="SwitchButtonContent">
             <Setter.Value>
                 <Path x:Name="path" 

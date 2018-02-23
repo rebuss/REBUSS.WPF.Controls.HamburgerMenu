@@ -21,8 +21,42 @@
                                         ToolTip="Edit Document"/>
         </hamburgerMenu:HamburgerMenu>-->
         <hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
-                                     ItemsSource="{Binding MenuItems}"
-                                     OpenPaneWidth="200">
+                                     OpenPaneWidth="200"
+                                     ItemsSource="{Binding MenuItems}">
+            <hamburgerMenu:HamburgerMenu.BackgroundContent>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.Column="1" Opacity="0.5">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="White" Offset="0"/>
+                                <GradientStop Color="#19FFFFFF" Offset="0.01"/>
+                                <GradientStop Color="Transparent" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Path Data="M0,207 L21,227.5 72,0 0.5,0.5" 
+                          Fill="White"
+                          Opacity="0.05"
+                          Margin="0,0,-22,91.5" 
+                          Stretch="Fill">
+                    </Path>
+                    <Path Data="M-9.2928335,227.49976 L21,227.5 72,0 44.220582,0.23722603" 
+                          Fill="White"
+                          Opacity="0.02"
+                          Margin="47.333,0,-8.735,-0.667" 
+                          Stretch="Fill" Grid.Column="1"/>
+                    <Path Data="M72.602997,227.62033 L21,227.5 72,0 72.603,227.62067" 
+                        Fill="White"
+                        Opacity="0.05"
+                        Margin="0,92.046,0,-0.667" 
+                        Stretch="Fill" Grid.Column="1" HorizontalAlignment="Right" Width="51.603"/>
+
+                </Grid>
+            </hamburgerMenu:HamburgerMenu.BackgroundContent>
             <hamburgerMenu:HamburgerMenu.Feeds>
                 <hamburgerMenu:FeedCollection>
                     <hamburgerMenu:ItemFeed IconContent="&#xE14C;" 
