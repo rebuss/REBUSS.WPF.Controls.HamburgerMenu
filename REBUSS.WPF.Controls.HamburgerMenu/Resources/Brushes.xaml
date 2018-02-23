@@ -7,6 +7,7 @@
     <Color x:Key="ActivePressedForegroundColor">#338CB6</Color>
     <Color x:Key="ActiveHighlightedBackgroundColor">#FF394747</Color>
     <Color x:Key="ActiveMarginBackgroundColor">#FF171C1C</Color>
+    <Color x:Key="ActiveSelectedForegroundColor">#3F8CD6</Color>
     <Color x:Key="NormalBackgroundColor">White</Color>
 
     <Color x:Key="ProgressBar1Color">#389ac7</Color>
@@ -18,6 +19,7 @@
     <SolidColorBrush x:Key="ActivePressedBackground" Color="{StaticResource ActivePressedBackgroundColor}"/>
     <SolidColorBrush x:Key="ActiveNormalForeground" Color="{StaticResource ActiveNormalForegroundColor}"/>
     <SolidColorBrush x:Key="ActiveHighlightedForeground" Color="{StaticResource ActiveHighlightedForegroundColor}"/>
+    <SolidColorBrush x:Key="ActiveSelectedForeground" Color="{StaticResource ActiveSelectedForegroundColor}"/>
     <SolidColorBrush x:Key="ActivePressedForeground" Color="{StaticResource ActivePressedForegroundColor}"/>
     <SolidColorBrush x:Key="ActiveHighlightedBackground" Color="{StaticResource ActiveHighlightedBackgroundColor}"/>
     <SolidColorBrush x:Key="ActiveMarginBackground" Color="{StaticResource ActiveMarginBackgroundColor}"/>

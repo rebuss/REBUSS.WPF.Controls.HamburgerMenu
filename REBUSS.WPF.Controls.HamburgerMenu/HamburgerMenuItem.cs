@@ -1,10 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace REBUSS.WPF.Controls.HamburgerMenu
 {
     public class HamburgerMenuItem : RadioButton
     {
+        public static readonly DependencyProperty BarBrushProperty = DependencyProperty.Register(
+            "BarBrush", typeof(Brush), typeof(HamburgerMenuItem), new PropertyMetadata(default(Brush)));
+
         public static readonly DependencyProperty IconWidthProperty = DependencyProperty.Register(
             "IconWidth", typeof(double), typeof(HamburgerMenuItem), new PropertyMetadata(default(double)));
 
@@ -15,6 +19,12 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(HamburgerMenuItem),
                 new FrameworkPropertyMetadata(typeof(HamburgerMenuItem)));
+        }
+
+        public Brush BarBrush
+        {
+            get { return (Brush)GetValue(BarBrushProperty); }
+            set { SetValue(BarBrushProperty, value); }
         }
 
         public double IconWidth

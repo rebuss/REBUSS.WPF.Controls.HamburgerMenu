@@ -87,7 +87,7 @@
             </VisualStateManager.VisualStateGroups>
 
             <Rectangle Stretch="Fill" 
-                       Fill="{DynamicResource ActiveHighlightedForeground}" 
+                       Fill="{TemplateBinding BarBrush}" 
                        Width="6"
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Stretch"
@@ -184,6 +184,7 @@
         <Setter Property="Template" Value="{StaticResource HamburgerMenuControlTemplate}"/>
         <Setter Property="FontSize" Value="22"></Setter>
         <Setter Property="OpenPaneWidth" Value="250"/>
+        <Setter Property="BarBrush" Value="{DynamicResource ActiveSelectedForeground}"></Setter>
         <Setter Property="SwitchButtonContent">
             <Setter.Value>
                 <Path x:Name="path" 

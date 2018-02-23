@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace REBUSS.WPF.Controls.HamburgerMenu
@@ -10,6 +11,9 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         public static readonly DependencyProperty BackgroundContentProperty = DependencyProperty.Register(
             "BackgroundContent", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
 
+        public static readonly DependencyProperty BarBrushProperty = DependencyProperty.Register(
+            "BarBrush", typeof(Brush), typeof(HamburgerMenu), new PropertyMetadata(default(Brush)));
+        
         public static readonly DependencyProperty CompactMenuTooltipProperty = DependencyProperty.Register(
             "CompactMenuTooltip", typeof(string), typeof(HamburgerMenu), new PropertyMetadata("Compact"));
 
@@ -71,6 +75,12 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             get { return (object)GetValue(BackgroundContentProperty); }
             set { SetValue(BackgroundContentProperty, value); }
+        }
+
+        public Brush BarBrush
+        {
+            get { return (Brush)GetValue(BarBrushProperty); }
+            set { SetValue(BarBrushProperty, value); }
         }
 
         public string CompactMenuTooltip
@@ -171,6 +181,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                     menuItem = (HamburgerMenuItem)ItemContainerGenerator.ContainerFromItem(item);
                 }
 
+                menuItem.BarBrush = BarBrush;
                 itemController.AddItem(menuItem);
             }
         }
