@@ -23,6 +23,9 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         public static readonly DependencyProperty FeedsProperty = DependencyProperty.Register(
             "Feeds", typeof(FeedCollection), typeof(HamburgerMenu), new PropertyMetadata(new FeedCollection()));
 
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+            "Header", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
+        
         public static readonly DependencyProperty OpenMenuTooltipProperty = DependencyProperty.Register(
             "OpenMenuTooltip", typeof(string), typeof(HamburgerMenu), new PropertyMetadata("Open"));
 
@@ -96,6 +99,12 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             get { return (FeedCollection)GetValue(FeedsProperty); }
             set { SetValue(FeedsProperty, value); }
+        }
+
+        public object Header
+        {
+            get { return (object)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
         }
 
         public bool IsOpen

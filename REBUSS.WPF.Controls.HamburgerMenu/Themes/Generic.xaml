@@ -52,6 +52,17 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <ContentPresenter Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            <ContentControl x:Name="Header" 
+                            Content="{TemplateBinding Header}" 
+                       FontSize="{TemplateBinding FontSize}"
+                       FontWeight="Bold"
+                       FontFamily="{TemplateBinding FontFamily}"
+                       Grid.Column="1" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"
+                       Margin="10,0,0,0"
+                       Padding="0"
+                       Opacity="{Binding TextOpacity, RelativeSource={RelativeSource AncestorType=hamburgerMenu:HamburgerMenu}}"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -181,6 +192,7 @@
                                         HorizontalAlignment="Stretch"
                                         x:Name="switchButton"
                                         Margin="0" 
+                                        Header="{TemplateBinding Header}"
                                         CompactMenuTooltip="{TemplateBinding CompactMenuTooltip}"
                                         OpenMenuTooltip="{TemplateBinding OpenMenuTooltip}"
                                         DockPanel.Dock="Top"

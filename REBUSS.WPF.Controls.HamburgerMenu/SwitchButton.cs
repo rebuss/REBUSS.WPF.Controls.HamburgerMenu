@@ -8,18 +8,28 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         public static readonly DependencyProperty CompactMenuTooltipProperty = DependencyProperty.Register(
             "CompactMenuTooltip", typeof(string), typeof(SwitchButton), new PropertyMetadata("Collapse"));
 
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+            "Header", typeof(object), typeof(SwitchButton), new PropertyMetadata(default(object)));
+
         public static readonly DependencyProperty OpenMenuTooltipProperty = DependencyProperty.Register(
             "OpenMenuTooltip", typeof(string), typeof(SwitchButton), new PropertyMetadata("Expand"));
 
         static SwitchButton()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(SwitchButton), new FrameworkPropertyMetadata(typeof(SwitchButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SwitchButton),
+                new FrameworkPropertyMetadata(typeof(SwitchButton)));
         }
-        
+
         public string CompactMenuTooltip
         {
             get { return (string) GetValue(CompactMenuTooltipProperty); }
             set { SetValue(CompactMenuTooltipProperty, value); }
+        }
+
+        public object Header
+        {
+            get { return GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
         }
 
         public string OpenMenuTooltip
