@@ -38,12 +38,6 @@
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <Path Data="M0,207 L21,227.5 72,0 0.5,0.5" 
-                          Fill="White"
-                          Opacity="0.05"
-                          Margin="0,0,-22,91.5" 
-                          Stretch="Fill">
-                    </Path>
                     <Path Data="M-9.2928335,227.49976 L21,227.5 72,0 44.220582,0.23722603" 
                           Fill="White"
                           Opacity="0.02"

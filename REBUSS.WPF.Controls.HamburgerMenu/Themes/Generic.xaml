@@ -8,7 +8,7 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="HamburgeMenuExpanderButton" TargetType="{x:Type hamburgerMenu:SwitchButton}">
-        <Grid x:Name="grid" Height="{TemplateBinding Height}" 
+        <Grid x:Name="grid" 
               Width="Auto" 
               Background="Transparent">
             <Grid.ColumnDefinitions>
@@ -142,8 +142,7 @@
     <ControlTemplate x:Key="HamburgerMenuControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
 
         <Grid x:Name="itemsControl" MinWidth="{TemplateBinding CompactPaneWidth}" 
-              Background="{TemplateBinding Background}"
-              Width="{TemplateBinding OpenPaneWidth}">
+              Background="{TemplateBinding Background}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -160,7 +159,6 @@
                                         HorizontalAlignment="Stretch"
                                         x:Name="switchButton"
                                         Margin="0" 
-                                        Height="{TemplateBinding SwitchButtonHeight}"
                                         CompactMenuTooltip="{TemplateBinding CompactMenuTooltip}"
                                         OpenMenuTooltip="{TemplateBinding OpenMenuTooltip}"
                                         DockPanel.Dock="Top"

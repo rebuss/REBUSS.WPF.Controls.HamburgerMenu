@@ -34,10 +34,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
 
         public static readonly DependencyProperty SwitchButtonContentProperty = DependencyProperty.Register(
             "SwitchButtonContent", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
-
-        public static readonly DependencyProperty SwitchButtonHeightProperty = DependencyProperty.Register(
-            "SwitchButtonHeight", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(46.0));
-
+        
         public static readonly DependencyProperty TextOpacityProperty = DependencyProperty.Register(
             "TextOpacity", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(default(double)));
 
@@ -123,12 +120,6 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         {
             get { return GetValue(SwitchButtonContentProperty); }
             set { SetValue(SwitchButtonContentProperty, value); }
-        }
-
-        public double SwitchButtonHeight
-        {
-            get { return (double)GetValue(SwitchButtonHeightProperty); }
-            set { SetValue(SwitchButtonHeightProperty, value); }
         }
 
         public double TextOpacity
