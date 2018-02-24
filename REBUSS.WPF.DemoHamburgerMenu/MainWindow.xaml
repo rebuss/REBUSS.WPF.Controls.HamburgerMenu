@@ -10,7 +10,7 @@
     <Window.DataContext>
         <demoHamburgerMenu:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid KeyboardNavigation.IsTabStop="False">
         <!--<hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
                                      OpenPaneWidth="200">
             <hamburgerMenu:HamburgerMenuItem Text="List"
@@ -24,7 +24,7 @@
                                      OpenPaneWidth="200"
                                      ItemsSource="{Binding MenuItems}">
             <hamburgerMenu:HamburgerMenu.BackgroundContent>
-                <Grid>
+                <Grid KeyboardNavigation.IsTabStop="False">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="*"/>

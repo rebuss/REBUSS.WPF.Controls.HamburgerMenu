@@ -28,6 +28,16 @@
                             </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
+                    <VisualState x:Name="Focused">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActiveHighlightedBackgroundColor}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)" Storyboard.TargetName="grid">
+                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
                     <VisualState x:Name="Pressed">
                         <Storyboard>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
@@ -62,6 +72,16 @@
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal"/>
                     <VisualState x:Name="MouseOver">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActiveHighlightedBackgroundColor}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)" Storyboard.TargetName="grid">
+                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Focused">
                         <Storyboard>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ActiveHighlightedBackgroundColor}"/>
@@ -142,6 +162,7 @@
     <ControlTemplate x:Key="HamburgerMenuControlTemplate" TargetType="{x:Type hamburgerMenu:HamburgerMenu}">
 
         <Grid x:Name="itemsControl" MinWidth="{TemplateBinding CompactPaneWidth}" 
+              KeyboardNavigation.IsTabStop="False"
               Background="{TemplateBinding Background}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -154,7 +175,8 @@
             <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" 
                             VerticalAlignment="Stretch"
                             HorizontalAlignment="Stretch"
-                            Content="{TemplateBinding BackgroundContent}"/>
+                            Content="{TemplateBinding BackgroundContent}"
+                            KeyboardNavigation.IsTabStop="False"/>
             <hamburgerMenu:SwitchButton IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                         HorizontalAlignment="Stretch"
                                         x:Name="switchButton"
@@ -170,9 +192,11 @@
               VerticalAlignment="Bottom" 
               Stroke="{DynamicResource ActiveHighlightedBackground}"
               StrokeThickness="1"
-              DockPanel.Dock="Top" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"/>
+              DockPanel.Dock="Top" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"
+              KeyboardNavigation.IsTabStop="False"/>
             <ItemsPresenter Margin="{TemplateBinding Padding}" 
-                            DockPanel.Dock="Bottom" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"/>
+                            DockPanel.Dock="Bottom" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
+                            KeyboardNavigation.IsTabStop="False"/>
         </Grid>
     </ControlTemplate>
 
@@ -182,7 +206,8 @@
         <Setter Property="Template" Value="{StaticResource HamburgerMenuControlTemplate}"/>
         <Setter Property="FontSize" Value="22"></Setter>
         <Setter Property="OpenPaneWidth" Value="250"/>
-        <Setter Property="BarBrush" Value="{DynamicResource ActiveSelectedForeground}"></Setter>
+        <Setter Property="BarBrush" Value="{DynamicResource ActiveSelectedForeground}"/>
+        <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
         <Setter Property="SwitchButtonContent">
             <Setter.Value>
                 <Path x:Name="path" 

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace REBUSS.WPF.Controls.HamburgerMenu
@@ -21,6 +22,11 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 new FrameworkPropertyMetadata(typeof(HamburgerMenuItem)));
         }
 
+        public HamburgerMenuItem()
+        {
+            KeyDown += OnKeyDown;
+        }
+        
         public Brush BarBrush
         {
             get { return (Brush)GetValue(BarBrushProperty); }
@@ -47,6 +53,14 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 SetCurrentValue(TextProperty, feed.Label);
                 SetCurrentValue(CommandProperty, feed.Command);
                 SetCurrentValue(ToolTipProperty, feed.Tooltip);
+            }
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.Equals(Key.Enter))
+            {
+                SetCurrentValue(IsCheckedProperty, true);
             }
         }
     }
