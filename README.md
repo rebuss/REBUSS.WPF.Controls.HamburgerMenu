@@ -2,8 +2,8 @@
 Hamburger menu control for WPF desktop apps. The project is licensed under the terms of the MIT license. It is fully customizable and supports keyboard and MVVM pattern.
 <p><img src="http://moj.hajs.hostingasp.pl/REBUSS_HamburgerMenu.gif"></p>
 
-To add the menu to your solution you need to do 2 thins:
-1. Add reference to the REBUSS.WPF.Controls.HamburgerMenu project or dll
+To add the menu to your solution you need 2 things:
+1. Add REBUSS.WPF.Controls.HamburgerMenu reference
 2. Add Brushes.xaml to you Application.Resources like below:
 
 ```xaml
@@ -13,7 +13,7 @@ To add the menu to your solution you need to do 2 thins:
 ```
 If you need to customize colors of the menu, then modify Brushes.xaml or add to your app different ResourceDictionary that contains brushes with the same names as the Brushes.xaml dictionary in HamburgerMenu project.
 
-There are 2 ways to define the menu in XAML. More MVVM approach is to bind ItemsSource collection that could be any IEnumerable object. To construct a correct menu you need to define also Feeds so what will be a label, tooltip, command and icon for the particular object on the list. As a key please use the same value as the value from the list in ViewModel.
+There are 2 ways to define the menu in XAML. First approach is to bind ItemsSource collection that could be any IEnumerable object. To construct a correct menu you need to define also Feeds. It's a property in HamburgerMenu class. It tells the control what's a label, tooltip, command and icon for the particular object on the list. As a key please use the same value as the value from the list in ViewModel.
 ```xaml
 <hamburgerMenu:HamburgerMenu HorizontalAlignment="Left" IsOpen="True"
                                      OpenPaneWidth="200"
