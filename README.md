@@ -59,7 +59,7 @@ There are several properties that you can modify:
 
         BarBrush, typeof(Brush) - it's a color of a small bar indicating if an item is selected
         
-        CompactMenuTooltip, typeof(string)
+        CompactMenuTooltip, typeof(object)
 
         CompactPaneWidth, typeof(double) - width of minimized menu
 
@@ -67,7 +67,7 @@ There are several properties that you can modify:
 
         Header, typeof(object) - an object that will be displayed as a header
         
-        OpenMenuTooltip, typeof(string)
+        OpenMenuTooltip, typeof(object)
 
         OpenPaneWidth, typeof(double) - width of maximized menu
 

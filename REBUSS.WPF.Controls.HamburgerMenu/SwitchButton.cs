@@ -6,13 +6,13 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
     internal class SwitchButton : ToggleButton
     {
         public static readonly DependencyProperty CompactMenuTooltipProperty = DependencyProperty.Register(
-            "CompactMenuTooltip", typeof(string), typeof(SwitchButton), new PropertyMetadata("Collapse"));
+            "CompactMenuTooltip", typeof(object), typeof(SwitchButton), new PropertyMetadata("Collapse"));
 
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
             "Header", typeof(object), typeof(SwitchButton), new PropertyMetadata(default(object)));
 
         public static readonly DependencyProperty OpenMenuTooltipProperty = DependencyProperty.Register(
-            "OpenMenuTooltip", typeof(string), typeof(SwitchButton), new PropertyMetadata("Expand"));
+            "OpenMenuTooltip", typeof(object), typeof(SwitchButton), new PropertyMetadata("Expand"));
 
         static SwitchButton()
         {
@@ -20,9 +20,9 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
                 new FrameworkPropertyMetadata(typeof(SwitchButton)));
         }
 
-        public string CompactMenuTooltip
+        public object CompactMenuTooltip
         {
-            get { return (string) GetValue(CompactMenuTooltipProperty); }
+            get { return GetValue(CompactMenuTooltipProperty); }
             set { SetValue(CompactMenuTooltipProperty, value); }
         }
 
@@ -32,9 +32,9 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             set { SetValue(HeaderProperty, value); }
         }
 
-        public string OpenMenuTooltip
+        public object OpenMenuTooltip
         {
-            get { return (string) GetValue(OpenMenuTooltipProperty); }
+            get { return GetValue(OpenMenuTooltipProperty); }
             set { SetValue(OpenMenuTooltipProperty, value); }
         }
 

@@ -15,7 +15,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             "BarBrush", typeof(Brush), typeof(HamburgerMenu), new PropertyMetadata(default(Brush)));
         
         public static readonly DependencyProperty CompactMenuTooltipProperty = DependencyProperty.Register(
-            "CompactMenuTooltip", typeof(string), typeof(HamburgerMenu), new PropertyMetadata("Compact"));
+            "CompactMenuTooltip", typeof(object), typeof(HamburgerMenu), new PropertyMetadata("Compact"));
 
         public static readonly DependencyProperty CompactPaneWidthProperty = DependencyProperty.Register(
             "CompactPaneWidth", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(50.0));
@@ -27,7 +27,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             "Header", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
         
         public static readonly DependencyProperty OpenMenuTooltipProperty = DependencyProperty.Register(
-            "OpenMenuTooltip", typeof(string), typeof(HamburgerMenu), new PropertyMetadata("Open"));
+            "OpenMenuTooltip", typeof(object), typeof(HamburgerMenu), new PropertyMetadata("Open"));
 
         public static readonly DependencyProperty OpenPaneWidthProperty = DependencyProperty.Register(
             "OpenPaneWidth", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(default(double)));
@@ -83,9 +83,9 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             set { SetValue(BarBrushProperty, value); }
         }
 
-        public string CompactMenuTooltip
+        public object CompactMenuTooltip
         {
-            get { return (string)GetValue(CompactMenuTooltipProperty); }
+            get { return GetValue(CompactMenuTooltipProperty); }
             set { SetValue(CompactMenuTooltipProperty, value); }
         }
 
@@ -113,9 +113,9 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             set { SetValue(IsOpenProperty, value); }
         }
 
-        public string OpenMenuTooltip
+        public object OpenMenuTooltip
         {
-            get { return (string)GetValue(OpenMenuTooltipProperty); }
+            get { return GetValue(OpenMenuTooltipProperty); }
             set { SetValue(OpenMenuTooltipProperty, value); }
         }
 
