@@ -10,11 +10,6 @@
     <Color x:Key="ActiveSelectedForegroundColor">#3F8CD6</Color>
     <Color x:Key="NormalBackgroundColor">White</Color>
 
-    <Color x:Key="ProgressBar1Color">#389ac7</Color>
-    <Color x:Key="ProgressBar2Color">#74b8d8</Color>
-    <Color x:Key="ProgressBar3Color">#9bcae4</Color>
-    <Color x:Key="ProgressBar4Color">#d7eaf4</Color>
-
     <SolidColorBrush x:Key="ActiveBackground" Color="{StaticResource ActiveBackgroundColor}"/>
     <SolidColorBrush x:Key="ActivePressedBackground" Color="{StaticResource ActivePressedBackgroundColor}"/>
     <SolidColorBrush x:Key="ActiveNormalForeground" Color="{StaticResource ActiveNormalForegroundColor}"/>
@@ -24,9 +19,5 @@
     <SolidColorBrush x:Key="ActiveHighlightedBackground" Color="{StaticResource ActiveHighlightedBackgroundColor}"/>
     <SolidColorBrush x:Key="ActiveMarginBackground" Color="{StaticResource ActiveMarginBackgroundColor}"/>
 
-    <SolidColorBrush x:Key="ProgressBar1" Color="{StaticResource ProgressBar1Color}"/>
-    <SolidColorBrush x:Key="ProgressBar2" Color="{StaticResource ProgressBar2Color}"/>
-    <SolidColorBrush x:Key="ProgressBar3" Color="{StaticResource ProgressBar3Color}"/>
-    <SolidColorBrush x:Key="ProgressBar4" Color="{StaticResource ProgressBar4Color}"/>
     <SolidColorBrush x:Key="NormalBackground" Color="{StaticResource NormalBackgroundColor}"/>
 </ResourceDictionary>
