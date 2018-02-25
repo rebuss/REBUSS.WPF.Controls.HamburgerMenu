@@ -38,7 +38,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
         public static readonly DependencyProperty SwitchButtonContentProperty = DependencyProperty.Register(
             "SwitchButtonContent", typeof(object), typeof(HamburgerMenu), new PropertyMetadata(default(object)));
         
-        public static readonly DependencyProperty TextOpacityProperty = DependencyProperty.Register(
+        internal static readonly DependencyProperty TextOpacityProperty = DependencyProperty.Register(
             "TextOpacity", typeof(double), typeof(HamburgerMenu), new PropertyMetadata(default(double)));
 
         public static readonly RoutedEvent MenuCompactedEvent =
@@ -131,7 +131,7 @@ namespace REBUSS.WPF.Controls.HamburgerMenu
             set { SetValue(SwitchButtonContentProperty, value); }
         }
 
-        public double TextOpacity
+        internal double TextOpacity
         {
             get { return (double)GetValue(TextOpacityProperty); }
             set { SetValue(TextOpacityProperty, value); }
